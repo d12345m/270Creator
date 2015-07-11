@@ -7,7 +7,6 @@ Known limitations and problems:
 
 2.) There is NO error-checking or catching (yet).
 
-3.) The script will only work for EMEDNY batch files (so far). 
 ---
 
 The file used as input should have the following format
