@@ -113,31 +113,36 @@ text = text + seg
 with open (args.input) as csvfile:
     clientreader = csv.DictReader(csvfile)
     for row in clientreader:
-        first_name = row["FirstName"]
-        last_name = row["LastName"]
-        dob = row["DOB"]
-        cin = row["CIN"]
-        # construct HL segment
-        seg = segment.make_segment("HL", [hl_num, hl_num-1, "22", "0"])       
-        hl_num +=1
-        text = text + seg
-        # construct NM segment
-        seg = segment.make_segment("NM1",["IL", "1", last_name.strip(),
-            first_name.strip(), "",
-            "", "", "MI", cin])
-        text = text + seg
-        # construct DMG segment
-        str_dob = time.strptime(dob, "%m/%d/%Y")
-        seg = segment.make_segment("DMG",["D8",time.strftime("%Y%m%d",
-            str_dob)])
-        text = text + seg
-        # construct DTP segment
-        seg = segment.make_segment("DTP",["291", "RD8",
-            current_date_long+"-"+current_date_long])
-        text = text + seg
-        # construct EQ segment
-        seg = segment.make_segment("EQ", ["30"])
-        text = text + seg
+        if not row["FirstName"] or not row["LastName"] or not row["DOB"] or not row["CIN"]:
+            print ("Data is missing from row. Skipping row.")
+        elif len(row["CIN"]) != 8:
+            print ("CIN number doesn't have 8 characters. Skipping row.")
+        else:
+            first_name = row["FirstName"]
+            last_name = row["LastName"]
+            dob = row["DOB"]
+            cin = row["CIN"]
+            # construct HL segment
+            seg = segment.make_segment("HL", [hl_num, hl_num-1, "22", "0"])       
+            hl_num +=1
+            text = text + seg
+            # construct NM segment
+            seg = segment.make_segment("NM1",["IL", "1", last_name.strip(),
+                first_name.strip(), "",
+                "", "", "MI", cin])
+            text = text + seg
+            # construct DMG segment
+            str_dob = time.strptime(dob, "%m/%d/%Y")
+            seg = segment.make_segment("DMG",["D8",time.strftime("%Y%m%d",
+                str_dob)])
+            text = text + seg
+            # construct DTP segment
+            seg = segment.make_segment("DTP",["291", "RD8",
+                current_date_long+"-"+current_date_long])
+            text = text + seg
+            # construct EQ segment
+            seg = segment.make_segment("EQ", ["30"])
+            text = text + seg
 
 # construct SE segment
 # get number of segments in text string so far by counting occurrences of '~'
