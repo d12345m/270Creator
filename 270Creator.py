@@ -113,14 +113,14 @@ text = text + seg
 with open (args.input) as csvfile:
     clientreader = csv.DictReader(csvfile)
     for row in clientreader:
-        if not row["FirstName"] or not row["LastName"] or not row["DOB"] or not row["CIN"]:
+        if not row["FirstName"] or not row["LastName"] or not row["DateOfBirth"] or not row["CIN"]:
             print ("Data is missing from row. Skipping row.")
         elif len(row["CIN"]) != 8:
             print ("CIN number doesn't have 8 characters. Skipping row.")
         else:
             first_name = row["FirstName"]
             last_name = row["LastName"]
-            dob = row["DOB"]
+            dob = row["DateOfBirth"]
             cin = row["CIN"]
             # construct HL segment
             seg = segment.make_segment("HL", [hl_num, hl_num-1, "22", "0"])       
