@@ -17,7 +17,11 @@ BB12345U,Jane,Doe,03/02/1965
 
 ---
 
+The 270_configuration.cfg file must be edited to include company-specific information (ETIN, etc).
+
+---
+
 The program requires two arguments to run properly:      
 
 -i (the input file)         
--d (the destination path for the resultant .270 file)       
+-d (the destination path for the resultant .270 file)     
