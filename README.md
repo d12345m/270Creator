@@ -13,7 +13,7 @@ The file used as input should have the following format
 
 CIN,FirstName,LastName,DOB            
 AA12345U,John,Doe,04/13/2001                
-BB12345U,Jane,Doe,03/02,1965              
+BB12345U,Jane,Doe,03/02/1965              
 
 ---
 
